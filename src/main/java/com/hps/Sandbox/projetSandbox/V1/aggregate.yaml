@@ -1,0 +1,198 @@
+ChangePinRq:
+  required:
+  - addUsrIdentif
+  - rqUID
+  type: object
+  properties:
+    rqUID:
+      type: string
+      xml:
+        name: RqUID
+    addUsrIdentif:
+      $ref: '#/AddUsrIdentif'
+    customerInformation:
+      $ref: '#/CustInfo'
+    agentInformation:
+      $ref: '#/AgentInfo'
+    merchantInformation:
+      $ref: '#/MerchantInfo'
+    pinBlockFormat:
+      type: string
+      xml:
+        name: PinBlockFormat
+    pinMethod:
+      type: string
+      xml:
+        name: PinMethod
+    currentPin:
+      type: string
+      xml:
+        name: CurrentPin
+    currentPvv:
+      type: string
+      xml:
+        name: CurrentPvv
+    newPin:
+      type: string
+      xml:
+        name: NewPin
+ResponseInfo:
+  required:
+  - errorCode
+  - errorDescription
+  - responseUID
+  - resultID
+  type: object
+  properties:
+    responseUID:
+      type: string
+      xml:
+        name: ResponseUID
+    resultID:
+      type: string
+      xml:
+        name: ResultID
+      enum:
+      - ProceedWithSuccess
+      - ProceedWithSuccessMC
+      - Error
+      - SystemError
+    errorCode:
+      type: string
+      xml:
+        name: ErrorCode
+    errorDescription:
+      type: string
+      xml:
+        name: ErrorDescription
+ChangePinRs:
+  required:
+  - errorCode
+  - errorDesc
+  - resultId
+  - rqUID
+  type: object
+  properties:
+    rqUID:
+      type: string
+      xml:
+        name: RqUID
+    resultId:
+      type: string
+      xml:
+        name: ResultId
+      enum:
+      - ProceedWithSuccess
+      - ProceedWithSuccessMC
+      - Error
+      - SystemError
+    errorCode:
+      type: string
+      xml:
+        name: ErrorCode
+    errorDesc:
+      type: string
+      xml:
+        name: ErrorDesc
+KeyValue:
+  type: object
+  properties:
+    key:
+      type: string
+      xml:
+        name: Key
+    data:
+      type: string
+      xml:
+        name: Data
+    type:
+      type: string
+      xml:
+        name: Type
+MerchantInfo:
+  type: object
+  properties:
+    chainId:
+      type: string
+      xml:
+        name: ChainId
+    merchantId:
+      type: string
+      xml:
+        name: MerchantId
+    posId:
+      type: string
+      xml:
+        name: PosId
+AgentInfo:
+  type: object
+  properties:
+    oedInstitutionId:
+      type: string
+      xml:
+        name: OedInstitutionId
+    branchId:
+      type: string
+      xml:
+        name: BranchId
+    agentId:
+      type: string
+      xml:
+        name: AgentId
+CustInfo:
+  type: object
+  properties:
+    customerId:
+      type: string
+      xml:
+        name: CustomerId
+    orgId:
+      type: string
+      xml:
+        name: OrgId
+    orgDepth:
+      type: number
+      xml:
+        name: OrgDepth
+    contractId:
+      type: string
+      xml:
+        name: ContractId
+AddUsrIdentif:
+  type: object
+  properties:
+    userId:
+      type: string
+      xml:
+        name: UserId
+    requestDate:
+      type: string
+      format: date-time
+      xml:
+        name: RequestDate
+    userLanguage:
+      type: string
+      xml:
+        name: UserLanguage
+    financialInstitution:
+      type: string
+      xml:
+        name: FinancialInstitution
+    products:
+      maxItems: 50
+      minItems: 0
+      type: array
+      xml:
+        name: Products
+      items:
+        type: string
+        xml:
+          name: Products
+    providerLogin:
+      type: string
+      xml:
+        name: ProviderLogin
+    providerPasswd:
+      type: string
+      xml:
+        name: ProviderPasswd

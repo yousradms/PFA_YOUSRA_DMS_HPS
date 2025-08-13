@@ -1,0 +1,1292 @@
+openapi: 3.0.3
+info:
+  title: Payment Instrument API documentation
+  description: |
+    Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance, Payment instrument operations, and Status operation.
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+- url: ${sandbox.backend.connectApiUrl}/rest
+  description: Development server
+security:
+- bearerAuth: [
+    ]
+paths:
+  /CreateCorporate/V2:
+    post:
+      tags:
+      - Create Corporate
+      summary: CreateCorporate_35
+      description: 'CreateCorporate_35 Web Service '
+      operationId: CreateCorporate_35Post
+      requestBody:
+        description: CreateCorporateRqV35 Request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCorporateRqV35'
+        required: true
+      responses:
+        '200':
+          description: ProceedWithSuccess
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCorporateRsV35'
+      servers:
+      - url: /PowerCardConnectApi/rest
+        variables: {
+          }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        <div>
+          <h5>Api key authorization</h5>
+          <p>JWT authorization header using Bearer scheme. Example: "Authorization: Bearer {token}"</p>
+          <table>
+            <tr><td>Name:</td><td>Authorization</td></tr>
+            <tr><td>In:</td><td>Header</td></tr>
+          </table>
+        </div>
+  schemas:
+    CreateCorporateRqV35:
+      required:
+      - bankCode
+      - corporateDetails
+      - requestInfo
+      type: object
+      properties:
+        requestInfo:
+          $ref: '#/components/schemas/RequestInfo'
+        bankCode:
+          maxLength: 6
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: BankCode
+        corporateDetails:
+          $ref: '#/components/schemas/CorporateDetailsV35'
+    CreateCorporateRsV35:
+      required:
+      - responseInfo
+      type: object
+      properties:
+        responseInfo:
+          $ref: '#/components/schemas/ResponseInfo'
+        corporateID:
+          maxLength: 15
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CorporateID
+        applicationID:
+          maxLength: 24
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ApplicationID
+        contractElmentID:
+          maxLength: 24
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ContractElmentID
+        corporateAccountNumber:
+          maxItems: 50
+          minItems: 0
+          type: array
+          xml:
+            name: CorporateAccountNumber
+          items:
+            type: string
+            xml:
+              name: CorporateAccountNumber
+        corporateLevel:
+          maxLength: 2
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CorporateLevel
+    ResponseInfo:
+      required:
+      - errorCode
+      - errorDescription
+      - responseUID
+      - resultID
+      type: object
+      properties:
+        responseUID:
+          type: string
+          xml:
+            name: ResponseUID
+        resultID:
+          type: string
+          xml:
+            name: ResultID
+          enum:
+          - ProceedWithSuccess
+          - ProceedWithSuccessMC
+          - Error
+          - SystemError
+        errorCode:
+          type: string
+          xml:
+            name: ErrorCode
+        errorDescription:
+          type: string
+          xml:
+            name: ErrorDescription
+    CorporateFinancialAssessmentV35:
+      required:
+      - currencyCode
+      - equityAmount
+      - fiscalYearRangeDate
+      - nbrPans
+      type: object
+      properties:
+        nbrPans:
+          maxLength: 15
+          minLength: 0
+          type: string
+          xml:
+            name: NbrPans
+        fiscalYearRangeDate:
+          $ref: '#/components/schemas/ValidityRangeDateV35'
+        currencyCode:
+          maxLength: 3
+          minLength: 0
+          type: string
+          xml:
+            name: CurrencyCode
+        equityAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: EquityAmount
+        reserveAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: ReserveAmount
+        currentAssetsAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: CurrentAssetsAmount
+        accumulatedLossesAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: AccumulatedLossesAmount
+        totalDebtAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: TotalDebtAmount
+        inventoryAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: InventoryAmount
+        currentLiabilitiesAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: CurrentLiabilitiesAmount
+        totNetWorthLiabilitiesAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: TotNetWorthLiabilitiesAmount
+        grossProfitAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: GrossProfitAmount
+        netProfitAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: NetProfitAmount
+        costSalesAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: CostSalesAmount
+        annualSalesAmount:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: AnnualSalesAmount
+    CorporateAddressListV35:
+      required:
+      - PrimaryAddressFlag
+      - addressType
+      type: object
+      properties:
+        primaryAddressFlag:
+          type: string
+        PrimaryAddressFlag:
+          maxLength: 1
+          minLength: 0
+          type: string
+        addressType:
+          maxLength: 2
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: AddressType
+        defaultUsage:
+          maxLength: 2
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: DefaultUsage
+        sendingMode:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: SendingMode
+        statusRangeDate:
+          $ref: '#/components/schemas/ValidityRangeDateV35'
+        addressDetails:
+          $ref: '#/components/schemas/CorporateAddressDetailsV35'
+    CorporateContactV35:
+      required:
+      - contactType
+      - employeeNumber
+      - familyName
+      - firstName
+      - ownerShipeStatus
+      - phone1
+      - statusCode
+      - statusDate
+      - titleCode
+      type: object
+      properties:
+        contactType:
+          maxLength: 2
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ContactType
+        employeeNumber:
+          maxLength: 24
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: EmployeeNumber
+        firstName:
+          maxLength: 30
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: FirstName
+        familyName:
+          maxLength: 30
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: FamilyName
+        titleCode:
+          maxLength: 2
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: TitleCode
+        nationalityCode:
+          maxLength: 3
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: NationalityCode
+        ownerShipeStatus:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: OwnerShipeStatus
+        position:
+          maxLength: 40
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: Position
+        statusCode:
+          maxLength: 2
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: StatusCode
+        statusDate:
+          type: string
+          format: date-time
+          xml:
+            name: StatusDate
+        emailAddress:
+          pattern: ^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$
+          type: string
+          xml:
+            name: EmailAddress
+        phone1:
+          $ref: '#/components/schemas/PhoneV35'
+        phone2:
+          $ref: '#/components/schemas/PhoneV35'
+        phone3:
+          $ref: '#/components/schemas/PhoneV35'
+        phone4:
+          $ref: '#/components/schemas/PhoneV35'
+    EmployeeProductSelectionV35:
+      required:
+      - currentLevelAvailabilityInd
+      - parentLevelAvailabilityInd
+      - productCode
+      - productVersion
+      - sublevelAvailabilityInd
+      type: object
+      properties:
+        productCode:
+          maxLength: 6
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ProductCode
+        productVersion:
+          maxLength: 10
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ProductVersion
+        productType:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ProductType
+        currentLevelAvailabilityInd:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CurrentLevelAvailabilityInd
+        parentLevelAvailabilityInd:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ParentLevelAvailabilityInd
+        sublevelAvailabilityInd:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: SublevelAvailabilityInd
+    PhoneV35:
+      required:
+      - phoneNumber
+      - phoneType
+      type: object
+      properties:
+        phoneType:
+          maxLength: 2
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: PhoneType
+        phoneNumber:
+          pattern: ^(\+|0|00)[0-9\s-]{5,25}$
+          type: string
+          xml:
+            name: PhoneNumber
+    AuthorizedSignatoryV35:
+      required:
+      - authExpiryDate
+      - authorizedBy
+      - delegationAuthorityInd
+      - employeNumber
+      - familyName
+      - firstName
+      - legalIdentifier
+      - signingPower
+      - statusCode
+      - statusDate
+      type: object
+      properties:
+        employeNumber:
+          maxLength: 15
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: EmployeNumber
+        titleCode:
+          maxLength: 2
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: TitleCode
+        firstName:
+          maxLength: 40
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: FirstName
+        familyName:
+          maxLength: 40
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: FamilyName
+        position:
+          maxLength: 30
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: Position
+        nationalityCode:
+          maxLength: 3
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: NationalityCode
+        legalIdentifier:
+          maxLength: 30
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: LegalIdentifier
+        signingPower:
+          maxLength: 2
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: SigningPower
+        authorizedBy:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: AuthorizedBy
+        delegationAuthorityInd:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: DelegationAuthorityInd
+        authExpiryDate:
+          type: string
+          format: date-time
+          xml:
+            name: AuthExpiryDate
+        statusCode:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: StatusCode
+        statusDate:
+          type: string
+          format: date-time
+          xml:
+            name: StatusDate
+        birthDate:
+          type: string
+          format: date-time
+          xml:
+            name: BirthDate
+    CorporateAccountLinkV35:
+      required:
+      - accountNumber
+      type: object
+      properties:
+        accountNumber:
+          maxLength: 24
+          minLength: 0
+          type: string
+          xml:
+            name: AccountNumber
+        postingDefaultFlag:
+          maxLength: 1
+          minLength: 0
+          type: string
+          xml:
+            name: PostingDefaultFlag
+        accountCurrency:
+          maxLength: 3
+          minLength: 0
+          type: string
+          xml:
+            name: AccountCurrency
+        iban:
+          maxLength: 34
+          minLength: 0
+          type: string
+          xml:
+            name: Iban
+        swiftCode:
+          maxLength: 11
+          minLength: 0
+          type: string
+          xml:
+            name: SwiftCode
+        accountStatus:
+          maxLength: 1
+          minLength: 0
+          type: string
+          xml:
+            name: AccountStatus
+        accountStatusReason:
+          maxLength: 2
+          minLength: 0
+          type: string
+          xml:
+            name: AccountStatusReason
+        accountStatusDate:
+          type: string
+          format: date-time
+          xml:
+            name: AccountStatusDate
+    CorporateDocumentV35:
+      required:
+      - documentCode
+      - documentId
+      - documentIssueDate
+      type: object
+      properties:
+        documentListID:
+          maxLength: 10
+          minLength: 0
+          type: string
+          xml:
+            name: DocumentListID
+        documentCode:
+          maxLength: 2
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: DocumentCode
+        documentId:
+          maxLength: 30
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: DocumentId
+        documentIssueCity:
+          maxLength: 32
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: DocumentIssueCity
+        documentIssueCountry:
+          maxLength: 32
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: DocumentIssueCountry
+        provided:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: Provided
+        mandatory:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: Mandatory
+        documentIssueDate:
+          type: string
+          format: date-time
+          xml:
+            name: DocumentIssueDate
+        documentExpiryDate:
+          type: string
+          format: date-time
+          xml:
+            name: DocumentExpiryDate
+    CorporatePostingRuleV35:
+      required:
+      - destinationAccountNumber
+      type: object
+      properties:
+        description:
+          maxLength: 64
+          minLength: 0
+          type: string
+          xml:
+            name: Description
+        mccGroup:
+          maxLength: 4
+          minLength: 0
+          type: string
+          xml:
+            name: MccGroup
+        transactionCode:
+          maxLength: 2
+          minLength: 0
+          type: string
+          xml:
+            name: TransactionCode
+        transactionCurrency:
+          type: string
+          xml:
+            name: TransactionCurrency
+        mcc:
+          maxLength: 4
+          minLength: 0
+          type: string
+          xml:
+            name: Mcc
+        transactionCategory:
+          maxLength: 2
+          minLength: 0
+          type: string
+          xml:
+            name: TransactionCategory
+        countryFlag:
+          maxLength: 1
+          minLength: 0
+          type: string
+          xml:
+            name: CountryFlag
+        currencyFlag:
+          maxLength: 1
+          minLength: 0
+          type: string
+          xml:
+            name: CurrencyFlag
+        acquirerCountryCode:
+          maxLength: 3
+          minLength: 0
+          type: string
+          xml:
+            name: AcquirerCountryCode
+        destinationAccountNumber:
+          maxLength: 24
+          minLength: 0
+          type: string
+          xml:
+            name: DestinationAccountNumber
+    RequestInfo:
+      required:
+      - requestDate
+      - requestUID
+      type: object
+      properties:
+        requestUID:
+          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          type: string
+          xml:
+            name: RequestUID
+        userID:
+          maxLength: 15
+          minLength: 0
+          pattern: ^[a-zA-Z0-9-#$_@&*.%+\s\/]*$
+          type: string
+          xml:
+            name: UserID
+        requestDate:
+          type: string
+          format: date-time
+          xml:
+            name: RequestDate
+    WebAddressV35:
+      type: object
+      properties:
+        emailAddress:
+          maxLength: 64
+          minLength: 0
+          pattern: ^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$
+          type: string
+          xml:
+            name: EmailAddress
+        url:
+          maxLength: 60
+          minLength: 0
+          type: string
+          xml:
+            name: Url
+    CorporateDetailsV35:
+      required:
+      - corporateAccountLinkList
+      - corporateAddressList
+      - corporateContactList
+      - corporateDemographic
+      - corporateFinancialAssessment
+      type: object
+      properties:
+        corporateFinancialAssessment:
+          $ref: '#/components/schemas/CorporateFinancialAssessmentV35'
+        corporateDemographic:
+          $ref: '#/components/schemas/CorporatedemographicV35'
+        corporateAddressList:
+          maxItems: 50
+          minItems: 0
+          type: array
+          xml:
+            name: CorporateAddressList
+          items:
+            $ref: '#/components/schemas/CorporateAddressListV35'
+        corporateDocumentList:
+          maxItems: 50
+          minItems: 0
+          type: array
+          xml:
+            name: CorporateDocumentList
+          items:
+            $ref: '#/components/schemas/CorporateDocumentV35'
+        corporateCustomFieldList:
+          maxItems: 50
+          minItems: 0
+          type: array
+          xml:
+            name: CorporateCustomFieldList
+          items:
+            $ref: '#/components/schemas/CustomFieldsCorporateV35'
+        corporateContactList:
+          maxItems: 50
+          minItems: 0
+          type: array
+          xml:
+            name: CorporateContactList
+          items:
+            $ref: '#/components/schemas/CorporateContactV35'
+        authorizedSignatoryList:
+          maxItems: 50
+          minItems: 0
+          type: array
+          xml:
+            name: AuthorizedSignatoryList
+          items:
+            $ref: '#/components/schemas/AuthorizedSignatoryV35'
+        employeePackSelectionList:
+          maxItems: 50
+          minItems: 0
+          type: array
+          xml:
+            name: EmployeePackSelectionList
+          items:
+            $ref: '#/components/schemas/EmployeePackSelectionV35'
+        employessProductSelectionList:
+          maxItems: 50
+          minItems: 0
+          type: array
+          xml:
+            name: EmployessProductSelectionList
+          items:
+            $ref: '#/components/schemas/EmployeeProductSelectionV35'
+        corporateAccount:
+          maxItems: 50
+          minItems: 0
+          type: array
+          xml:
+            name: CorporateAccount
+          items:
+            $ref: '#/components/schemas/CorporateAccountV35'
+        corporateAccountLinkList:
+          maxItems: 50
+          minItems: 0
+          type: array
+          xml:
+            name: CorporateAccountLinkList
+          items:
+            $ref: '#/components/schemas/CorporateAccountLinkV35'
+        postingRuleList:
+          maxItems: 50
+          minItems: 0
+          type: array
+          xml:
+            name: PostingRuleList
+          items:
+            $ref: '#/components/schemas/CorporatePostingRuleV35'
+    CorporateAccountV35:
+      required:
+      - cycleCutoffCode
+      - productContractElmtID
+      type: object
+      properties:
+        cycleCutoffCode:
+          maxLength: 3
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CycleCutoffCode
+        productContractElmtID:
+          maxLength: 24
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ProductContractElmtID
+        creditLimit:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: CreditLimit
+        cashLimit:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: CashLimit
+        additionalLoanLimit:
+          maxLength: 18
+          minLength: 0
+          pattern: ^\d*$
+          type: string
+          xml:
+            name: AdditionalLoanLimit
+    CorporateAddressDetailsV35:
+      required:
+      - address1
+      type: object
+      properties:
+        careOf:
+          maxLength: 64
+          minLength: 0
+          type: string
+          xml:
+            name: CareOf
+        address1:
+          maxLength: 64
+          minLength: 0
+          type: string
+          xml:
+            name: Address1
+        address2:
+          maxLength: 64
+          minLength: 0
+          type: string
+          xml:
+            name: Address2
+        address3:
+          maxLength: 64
+          minLength: 0
+          type: string
+          xml:
+            name: Address3
+        address4:
+          maxLength: 64
+          minLength: 0
+          type: string
+          xml:
+            name: Address4
+        zipCode:
+          maxLength: 10
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ZipCode
+        countryCode:
+          maxLength: 3
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CountryCode
+        regionCode:
+          maxLength: 3
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: RegionCode
+        cityCode:
+          maxLength: 5
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CityCode
+        regionFreeText:
+          maxLength: 32
+          minLength: 0
+          type: string
+          xml:
+            name: RegionFreeText
+        cityFreeText:
+          maxLength: 32
+          minLength: 0
+          type: string
+          xml:
+            name: CityFreeText
+        fax:
+          maxLength: 20
+          minLength: 0
+          type: string
+          xml:
+            name: Fax
+        phone1:
+          $ref: '#/components/schemas/PhoneV35'
+        phone2:
+          $ref: '#/components/schemas/PhoneV35'
+        phone3:
+          $ref: '#/components/schemas/PhoneV35'
+        phone4:
+          $ref: '#/components/schemas/PhoneV35'
+        webAddress:
+          $ref: '#/components/schemas/WebAddressV35'
+    ValidityRangeDateV35:
+      type: object
+      properties:
+        startDt:
+          type: string
+          format: date-time
+          xml:
+            name: StartDt
+        endDt:
+          type: string
+          format: date-time
+          xml:
+            name: EndDt
+    CorporatedemographicV35:
+      required:
+      - acceptCardIndecator
+      - activityCode
+      - applicationType
+      - billingIndecator
+      - branchCode
+      - contractElmentID
+      - corporateName
+      - corporateTypeCode
+      - customerSegment
+      - embossingLine
+      - languageCode
+      - liabilityIndicator
+      - taxNumber
+      - taxRegistryOffice
+      type: object
+      properties:
+        corporateID:
+          maxLength: 15
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CorporateID
+        corporateTypeCode:
+          maxLength: 3
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CorporateTypeCode
+        corporateName:
+          maxLength: 40
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CorporateName
+        corporateHostID:
+          maxLength: 15
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CorporateHostID
+        hierarchyCode:
+          maxLength: 6
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: HierarchyCode
+        branchCode:
+          maxLength: 6
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: BranchCode
+        activityCode:
+          maxLength: 4
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ActivityCode
+        customerSegment:
+          maxLength: 3
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CustomerSegment
+        taxRegistryOffice:
+          maxLength: 30
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: TaxRegistryOffice
+        taxNumber:
+          maxLength: 30
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: TaxNumber
+        liabilityIndicator:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: LiabilityIndicator
+        languageCode:
+          maxLength: 3
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: LanguageCode
+        billingIndecator:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: BillingIndecator
+        acceptCardIndecator:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: AcceptCardIndecator
+        applicationId:
+          maxLength: 24
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ApplicationId
+        applicationType:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ApplicationType
+        applicationDate:
+          type: string
+          format: date-time
+          xml:
+            name: ApplicationDate
+        contractElmentID:
+          maxLength: 24
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ContractElmentID
+        ownerCode:
+          maxLength: 2
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: OwnerCode
+        ownerCategory:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: OwnerCategory
+        increaseRate:
+          maxLength: 9
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: IncreaseRate
+        statementCode:
+          maxLength: 2
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: StatementCode
+        socioProfessionalCode:
+          maxLength: 4
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: SocioProfessionalCode
+        embossingLine:
+          maxLength: 40
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: EmbossingLine
+        establishedDate:
+          type: string
+          format: date-time
+          xml:
+            name: EstablishedDate
+    KeyValueV35:
+      required:
+      - data
+      - key
+      type: object
+      properties:
+        key:
+          maxLength: 30
+          minLength: 0
+          pattern: ^[a-zA-Z0-9-#$_@&*.%+\s\/]*$
+          type: string
+          xml:
+            name: Key
+        data:
+          maxLength: 64
+          minLength: 0
+          pattern: ^[a-zA-Z0-9-#$_@&*.%+\s\/]*$
+          type: string
+          xml:
+            name: Data
+        type:
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: Type
+    CustomFieldsCorporateV35:
+      required:
+      - fieldName
+      - fieldValue
+      type: object
+      properties:
+        currency:
+          type: string
+        fieldName:
+          maxLength: 30
+          minLength: 0
+          pattern: ^[a-zA-Z0-9-#$_@&*.%+\s\/]*$
+          type: string
+          xml:
+            name: FieldName
+        fieldValue:
+          maxLength: 256
+          minLength: 0
+          pattern: ^[a-zA-Z0-9-#$_@&*.%+\s\/]*$
+          type: string
+          xml:
+            name: FieldValue
+        Currency:
+          maxLength: 3
+          minLength: 0
+          pattern: ^[a-zA-Z0-9-#$_@&*.%+\s\/]*$
+          type: string
+    EmployeePackSelectionV35:
+      required:
+      - currentLevelAvailabilityInd
+      - packCode
+      - parentLevelAvailabilityInd
+      - sublevelAvailabilityInd
+      type: object
+      properties:
+        packCode:
+          maxLength: 6
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: PackCode
+        currentLevelAvailabilityInd:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: CurrentLevelAvailabilityInd
+        parentLevelAvailabilityInd:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: ParentLevelAvailabilityInd
+        sublevelAvailabilityInd:
+          maxLength: 1
+          minLength: 0
+          pattern: ^[A-Za-z0-9]*$
+          type: string
+          xml:
+            name: SublevelAvailabilityInd

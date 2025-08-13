@@ -1,0 +1,11 @@
+AddMerchantBankAccountV353Rq:
+  required:
+  - requestInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: ./aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: ./aggregate.yaml#/MerchantIdInfoV35
+    merchantAccount:
+      $ref: ./aggregate.yaml#/MerchantAccountV35

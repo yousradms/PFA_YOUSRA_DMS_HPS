@@ -1,0 +1,14 @@
+AddMerchantBankAccountV353Rs:
+  required:
+  - responseInfo
+  type: object
+  properties:
+    responseInfo:
+      $ref: ./aggregate.yaml#/ResponseInfo
+    accountSeqID:
+      maxLength: 15
+      minLength: 0
+      pattern: ^[A-Za-z0-9]*$
+      type: string
+      xml:
+        name: AccountSeqID

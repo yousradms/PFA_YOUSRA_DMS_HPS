@@ -1,0 +1,38 @@
+ChangePinRq:
+  required:
+  - addUsrIdentif
+  - rqUID
+  type: object
+  properties:
+    rqUID:
+      type: string
+      xml:
+        name: RqUID
+    addUsrIdentif:
+      $ref: ./aggregate.yaml#/AddUsrIdentif
+    customerInformation:
+      $ref: ./aggregate.yaml#/CustInfo
+    agentInformation:
+      $ref: ./aggregate.yaml#/AgentInfo
+    merchantInformation:
+      $ref: ./aggregate.yaml#/MerchantInfo
+    pinBlockFormat:
+      type: string
+      xml:
+        name: PinBlockFormat
+    pinMethod:
+      type: string
+      xml:
+        name: PinMethod
+    currentPin:
+      type: string
+      xml:
+        name: CurrentPin
+    currentPvv:
+      type: string
+      xml:
+        name: CurrentPvv
+    newPin:
+      type: string
+      xml:
+        name: NewPin

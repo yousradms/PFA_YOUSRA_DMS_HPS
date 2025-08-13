@@ -1,0 +1,17 @@
+ApplePayEncryptionV35Rq:
+  required:
+  - requestInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: ./aggregate.yaml#/RequestInfo
+    unencryptedPassData:
+      $ref: ./aggregate.yaml#/ApplePayUnencryptedPassDataV35
+    appleCertificate:
+      type: string
+      xml:
+        name: AppleCertificate
+    cardScheme:
+      type: string
+      xml:
+        name: CardScheme

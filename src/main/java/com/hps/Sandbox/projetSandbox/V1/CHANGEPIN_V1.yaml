@@ -1,0 +1,58 @@
+openapi: 3.0.3
+info:
+  title: Payment Instrument API documentation
+  description: |
+    Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance, Payment instrument operations, and Status operation.
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+- url: ${sandbox.backend.connectApiUrl}/rest
+  description: Development server
+security:
+- bearerAuth: [
+    ]
+paths:
+  /ChangePin/V1:
+    post:
+      tags:
+      - CHANGEPIN
+      summary: changePin_10
+      description: 'changePin_10 Web Service '
+      operationId: changePin_10Post
+      requestBody:
+        description: ChangePinRq Request
+        content:
+          application/json:
+            schema:
+              $ref: ./request.yaml#/ChangePinRq
+        required: true
+      responses:
+        '200':
+          description: ProceedWithSuccess
+          content:
+            application/json:
+              schema:
+                $ref: ./response.yaml#/ChangePinRs
+      servers:
+      - url: /PowerCardConnectApi/rest
+        variables: {
+          }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        <div>
+          <h5>Api key authorization</h5>
+          <p>JWT authorization header using Bearer scheme. Example: "Authorization: Bearer {token}"</p>
+          <table>
+            <tr><td>Name:</td><td>Authorization</td></tr>
+            <tr><td>In:</td><td>Header</td></tr>
+          </table>
+        </div>
+  schemas:
+    ChangePinRq:
+      $ref: ./request.yaml#/ChangePinRq
+    ChangePinRs:
+      $ref: ./response.yaml#/ChangePinRs

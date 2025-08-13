@@ -1,0 +1,32 @@
+ChangePinRs:
+  required:
+  - responseInfo
+  - errorCode
+  - errorDesc
+  - resultId
+  - rqUID
+  type: object
+  properties:
+    rqUID:
+      type: string
+      xml:
+        name: RqUID
+    resultId:
+      type: string
+      xml:
+        name: ResultId
+      enum:
+      - ProceedWithSuccess
+      - ProceedWithSuccessMC
+      - Error
+      - SystemError
+    errorCode:
+      type: string
+      xml:
+        name: ErrorCode
+    errorDesc:
+      type: string
+      xml:
+        name: ErrorDesc
+    responseInfo:
+      $ref: ./aggregate.yaml#/ResponseInfo
