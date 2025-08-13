@@ -6,6 +6,10 @@ Ce projet automatise le traitement des spécifications OpenAPI pour générer de
 
 Livrables principaux :
 
+
+
+
+
 Fichiers YAML OpenAPI (Principal, Requêtes, Réponses, Agrégats)
 
 
